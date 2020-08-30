@@ -10,13 +10,13 @@ import Dark from './styles/dark';
 
 var Theme = Light;
 
-var userTheme = "Light";
+var userTheme = "light";
 
 switch (userTheme) {
-    case "Light":
+    case "light":
         Theme = Light;
         break;
-    case "Dark":
+    case "dark":
         Theme = Dark;
         break;
 }
@@ -24,7 +24,7 @@ switch (userTheme) {
 export default function App() {
     return (
         <ThemeProvider theme={Theme}>
-            <StatusBar backgroundColor="#2c387e" barStyle="light-content" />
+            <StatusBar backgroundColor="#c66900" barStyle="light-content" />
             <View style={{ flex: 1, backgroundColor: Theme.colors.background }}>
                 <Index />
             </View>

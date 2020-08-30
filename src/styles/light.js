@@ -7,7 +7,7 @@ const theme = {
     dark: false,
     roundness: 4,
     colors: {
-        primary: '#3f51b5',
+        primary: '#ff9800',
         accent: '#00b0ff',
         background: '#f6f6f6',
         surface: white,
