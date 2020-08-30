@@ -2,7 +2,7 @@
     "name": "music",
     "version": "0.1.0",
     "description": "Music Player",
-    "repository": "https://github.com/GuiNerd/Music",
+    "repository": "https://github.com/GuilhermeWerner/Music",
     "author": "Guilherme Werner <guilhermeqwerner@gmail.com>",
     "license": "MIT",
     "private": true,
