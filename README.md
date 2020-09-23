@@ -1,3 +1,3 @@
 # Music Player
 
-Made using React Native and Expo
+Made using React Native
