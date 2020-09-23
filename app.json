@@ -1,33 +1,4 @@
 {
-  "expo": {
-    "name": "Music",
-    "slug": "Music",
-    "platforms": [
-      "ios",
-      "android"
-    ],
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./src/assets/icon.png",
-    "splash": {
-      "image": "./src/assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-        "bundleIdentifier": "com.tribufu.music",
-        "buildNumber": "1.0.0",
-        "supportsTablet": true
-    },
-    "android": {
-        "package": "com.tribufu.music",
-        "versionCode": 1
-    }
-  }
+  "name": "Music",
+  "displayName": "Music"
 }
