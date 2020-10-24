@@ -2,7 +2,7 @@ import React from "react";
 
 import { View, Text } from "react-native";
 
-import { Appbar as PaperBar, useTheme } from "react-native-paper";
+import { useTheme } from "react-native-paper";
 
 function HandleMore() {
     console.log("About");
