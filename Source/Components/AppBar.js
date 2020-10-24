@@ -1,17 +1,17 @@
-import React from 'react';
+import React from "react";
 
-import { Appbar as PaperBar } from 'react-native-paper';
+import { Appbar as PaperBar } from "react-native-paper";
 
 function GoBack() {
-    console.log('Went back');
+    console.log("Went back");
 }
 
 function HandleSearch() {
-    console.log('Search');
+    console.log("Search");
 }
 
 function HandleMore() {
-    console.log('Menu');
+    console.log("Menu");
 }
 
 export default function AppBar() {

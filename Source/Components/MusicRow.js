@@ -1,5 +1,6 @@
-import React from 'react';
-import { List } from 'react-native-paper';
+import React from "react";
+
+import { List } from "react-native-paper";
 
 export default function MusicRow() {
     return (

@@ -1,9 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import AppBar from '../components/AppBar';
+import AppBar from "../Components/AppBar";
 
-import { Text } from 'react-native-paper';
-import MusicRow from '../components/MusicRow';
+import MusicRow from "../Components/MusicRow";
 
 export default function Index() {
     return (
