@@ -6,7 +6,7 @@ function HandleMore() {
     console.log("About");
 }
 
-export default function AppBar() {
+function AppBar({ navigation }) {
     return (
         <React.Fragment>
             <PaperBar>
@@ -16,3 +16,5 @@ export default function AppBar() {
         </React.Fragment>
     );
 }
+
+export default AppBar;

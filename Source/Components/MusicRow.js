@@ -1,18 +1,22 @@
-import React from "react";
+import React, { PureComponent } from "react";
 
 import { List } from "react-native-paper";
 
-function HandlePlay() {
-    console.log("Play");
+function HandlePlay(name) {
+    console.log("Play", name);
 }
 
-export default function MusicRow() {
-    return (
-        <List.Item
-            title="Music"
-            description="Artist"
-            onPress={HandlePlay}
-            left={props => <List.Icon {...props} icon="music" />}
-        />
-    );
+export default class MusicRow extends PureComponent {
+    render() {
+        const { name, navigation } = this.props;
+
+        return (
+            <List.Item
+                title={name}
+                description="Artist"
+                onPress={() => HandlePlay(name)}
+                left={props => <List.Icon {...props} icon="music" />}
+            />
+        );
+    }
 }

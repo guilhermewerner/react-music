@@ -32,6 +32,9 @@ module.exports = {
         "no-undef": [
             "warn"
         ],
+        "react/prop-types": [
+            "warn"
+        ],
         "linebreak-style": [
             "error",
             "unix"
