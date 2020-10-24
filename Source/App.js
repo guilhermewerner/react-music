@@ -1,30 +1,19 @@
 import React, { useState, useEffect } from "react";
 
-import { View, StatusBar, PermissionsAndroid, Button } from "react-native";
+import { View, StatusBar, Button } from "react-native";
 import { Provider as ThemeProvider } from "react-native-paper";
+
+import Permissions from "./Utils/Permissions";
+//import Storage from "./Utils/Storage";
 
 import Index from "./Pages/Index";
 
 import Theme from "./Styles/Theme";
 
-async function RequestStoragePermission() {
-    try {
-        const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE);
-
-        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-            console.log("READ_EXTERNAL_STORAGE GRANTED");
-        } else {
-            console.log("READ_EXTERNAL_STORAGE DENYED");
-        }
-    } catch (error) {
-        console.warn(error);
-    }
-}
-
 export default function App() {
     useEffect(() => {
-        RequestStoragePermission();
-    }), [];
+        Permissions.Request();
+    }, []);
 
     return (
         <ThemeProvider theme={Theme}>
