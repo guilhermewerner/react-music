@@ -1,16 +1,29 @@
 import React from "react";
 
+import { ScrollView } from "react-native";
+
 import AppBar from "../Components/AppBar";
 
 import MusicRow from "../Components/MusicRow";
 
 export default function Index() {
     return (
-        <React.Fragment>
+        <>
             <AppBar />
-            <React.Fragment>
+            <ScrollView indicatorStyle="white">
                 <MusicRow />
-            </React.Fragment>
-        </React.Fragment>
+                <MusicRow />
+                <MusicRow />
+                <MusicRow />
+                <MusicRow />
+                <MusicRow />
+                <MusicRow />
+                <MusicRow />
+                <MusicRow />
+                <MusicRow />
+                <MusicRow />
+                <MusicRow />
+            </ScrollView>
+        </>
     );
 }
