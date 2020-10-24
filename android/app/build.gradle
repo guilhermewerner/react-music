@@ -208,7 +208,8 @@ dependencies {
         implementation jscFlavor
     }
 
-    implementation project(':react-native-permissions')
+    compile project(':react-native-fs')
+    compile project(':react-native-track-player')
 }
 
 // Run this once to be able to run the application with BUCK
