@@ -10,7 +10,8 @@ import Theme from "./Styles/Theme";
 export default function App() {
     return (
         <ThemeProvider theme={Theme}>
-            <StatusBar backgroundColor="#c66900" barStyle="light-content" />
+            {/* 00b0ff */}
+            <StatusBar backgroundColor={Theme.colors.background} barStyle="light-content" />
             <View style={{ flex: 1, backgroundColor: Theme.colors.background }}>
                 <Index />
             </View>
