@@ -6,7 +6,7 @@ import { Provider as ThemeProvider } from "react-native-paper";
 import Permissions from "./Utils/Permissions";
 //import Storage from "./Utils/Storage";
 
-import Index from "./Pages/Index";
+import Routes from "./Routes";
 
 import Theme from "./Styles/Theme";
 
@@ -17,10 +17,9 @@ export default function App() {
 
     return (
         <ThemeProvider theme={Theme}>
-            {/* 00b0ff */}
             <StatusBar backgroundColor={Theme.colors.background} barStyle="light-content" />
             <View style={{ flex: 1, backgroundColor: Theme.colors.background }}>
-                <Index />
+                <Routes/>
             </View>
         </ThemeProvider>
     );

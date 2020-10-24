@@ -8,7 +8,7 @@ function HandlePlay(name) {
 
 export default class MusicRow extends PureComponent {
     render() {
-        const { name } = this.props;
+        const { name, navigation } = this.props;
 
         return (
             <List.Item

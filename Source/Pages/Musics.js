@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react";
 
-import { View, SafeAreaView, FlatList, Text, ActivityIndicator } from "react-native";
-
-import { v4 as Uuiv4 } from "uuid";
-
-import AppBar from "../Components/AppBar";
-
-import MusicRow from "../Components/MusicRow";
+import { View, SafeAreaView, FlatList, ActivityIndicator, StyleSheet } from "react-native";
 
 import FileSystem from "react-native-fs";
+
+import { Surface, Text, List, useTheme } from "react-native-paper";
+
+import AppBar from "../Components/AppBar";
+import BottonPlayer from "../Components/BottonPlayer";
+import MusicRow from "../Components/MusicRow";
 
 // file:///storage/emulated/0/Music
 // file:///storage/XXXX-XXXX/Music
 
-function Index() {
+function Musics({ navigation }) {
+    const { colors } = useTheme();
+
     const [musics, SetMusics] = useState([]);
     const [loading, SetLoading] = useState(true);
 
@@ -57,13 +59,18 @@ function Index() {
         });
     }, []);
 
-    const RenderItem = ({ item }) => (<MusicRow name={item.name} />);
+    const RenderItem = ({ item }) => (<MusicRow name={item.name} navigation={navigation} />);
 
     if (loading) {
         return (
             <>
-                <AppBar />
-                <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                <AppBar navigation={navigation} />
+                <View style={{
+                    flex: 1,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    backgroundColor: colors.background
+                }}>
                     <ActivityIndicator color="ffffff" size="large" loading={loading} />
                 </View>
             </>
@@ -71,19 +78,27 @@ function Index() {
     } else {
         return (
             <>
-                <AppBar />
-                <SafeAreaView>
-                    <FlatList
-                        data={musics}
-                        renderItem={RenderItem}
-                        keyExtractor={item => item.key}
-                        removeClippedSubviews={true}
-                        initialNumToRender={8}
-                    />
-                </SafeAreaView>
+                <AppBar navigation={navigation} />
+                <View style={{
+                    flex: 1,
+                    overflow: "hidden",
+                }}>
+                    <SafeAreaView style={{
+                        flex: 1, backgroundColor: colors.background
+                    }}>
+                        <FlatList
+                            data={musics}
+                            renderItem={RenderItem}
+                            keyExtractor={item => item.key}
+                            removeClippedSubviews={true}
+                            initialNumToRender={8}
+                        />
+                    </SafeAreaView>
+                    <BottonPlayer navigation={navigation}/>
+                </View>
             </>
         );
     }
 }
 
-export default Index;
+export default Musics;
