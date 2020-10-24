@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 
-import { View, SafeAreaView, FlatList, ActivityIndicator, StyleSheet } from "react-native";
+import { View, SafeAreaView, FlatList, ActivityIndicator } from "react-native";
 
-import FileSystem from "react-native-fs";
-
-import { Surface, Text, List, useTheme } from "react-native-paper";
+import { useTheme } from "react-native-paper";
 
 import AppBar from "../Components/AppBar";
 import BottonPlayer from "../Components/BottonPlayer";
 import MusicRow from "../Components/MusicRow";
+
+import Storage from "../Utils/Storage";
 
 // file:///storage/emulated/0/Music
 // file:///storage/XXXX-XXXX/Music
@@ -20,43 +20,35 @@ function Musics({ navigation }) {
     const [loading, SetLoading] = useState(true);
 
     useEffect(() => {
-        FileSystem.getAllExternalFilesDirs().then((storages) => {
+        Storage.GetSdCardPath().then((sdCardPath) => {
             const INTERNAL_STORAGE = "file:///storage/emulated/0";
-            const EXTERNAL_STORAGE = `file://${storages[1].substring(0, 18)}`;  // => file:///storage/XXXX-XXXX
+            const EXTERNAL_STORAGE = sdCardPath;
 
             console.log([INTERNAL_STORAGE, EXTERNAL_STORAGE]);
 
             let temp = [];
 
-            FileSystem.readDir(INTERNAL_STORAGE + "/Music").then((result) => {
-                result.forEach(file => {
-                    if (file.isFile() && (file.name.endsWith(".mp3") || file.name.endsWith(".m4a"))) {
-                        temp.push({
-                            key: (temp.length + 1).toString(),
-                            name: file.name,
-                            path: file.path,
-                        });
-                    }
-                });
+            Storage.ReadDirectory(INTERNAL_STORAGE + "/Music").then((internalFiles) => {
+                temp = Storage.FilterMusics(temp, internalFiles);
 
-                FileSystem.readDir(EXTERNAL_STORAGE + "/Music").then((result) => {
-                    result.forEach(file => {
-                        if (file.isFile() && (file.name.endsWith(".mp3") || file.name.endsWith(".m4a"))) {
-                            temp.push({
-                                key: (temp.length + 1).toString(),
-                                name: file.name,
-                                path: file.path,
-                            });
-                        }
-                    });
+                Storage.ReadDirectory(EXTERNAL_STORAGE + "/Music").then((externalFiles) => {
+                    temp = Storage.FilterMusics(temp, externalFiles);
 
                     SetMusics(temp);
                     SetLoading(false);
                 });
             });
         }).catch((error) => {
-            console.log(error.message, error.code);
+            console.warn(error);
         });
+        /*
+        Storage.GetMusics().then((musics) => {
+            SetMusics(musics);
+            SetLoading(false);
+        }).catch((error) => {
+            console.log(error);
+        });
+        */
     }, []);
 
     const RenderItem = ({ item }) => (<MusicRow name={item.name} navigation={navigation} />);
@@ -94,7 +86,7 @@ function Musics({ navigation }) {
                             initialNumToRender={8}
                         />
                     </SafeAreaView>
-                    <BottonPlayer navigation={navigation}/>
+                    <BottonPlayer navigation={navigation} />
                 </View>
             </>
         );
