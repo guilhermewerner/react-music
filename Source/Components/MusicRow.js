@@ -2,21 +2,29 @@ import React, { PureComponent } from "react";
 
 import { List } from "react-native-paper";
 
-function HandlePlay(name) {
-    console.log("Play", name);
-}
+import Context from "../Context";
 
 export default class MusicRow extends PureComponent {
     render() {
-        const { name, navigation } = this.props;
+        const { music, navigation } = this.props;
 
         return (
-            <List.Item
-                title={name}
-                description="Artist"
-                onPress={() => HandlePlay(name)}
-                left={props => <List.Icon {...props} icon="music" />}
-            />
+            <Context.Consumer>
+                {({ index, SetIndex, Player }) => (
+                    <List.Item
+                        title={music.title}
+                        description="Artist"
+                        onPress={() => {
+                            Player.skip(music.id);
+
+                            Player.getCurrentTrack().then((id) => {
+                                SetIndex(id);
+                            });
+                        }}
+                        left={props => <List.Icon {...props} icon="music" />}
+                    />
+                )}
+            </Context.Consumer>
         );
     }
 }

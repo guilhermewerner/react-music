@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 
 import { View, SafeAreaView, FlatList, ActivityIndicator } from "react-native";
 
@@ -8,7 +8,7 @@ import AppBar from "../Components/AppBar";
 import BottonPlayer from "../Components/BottonPlayer";
 import MusicRow from "../Components/MusicRow";
 
-import Storage from "../Utils/Storage";
+import Context from "../Context";
 
 // file:///storage/emulated/0/Music
 // file:///storage/XXXX-XXXX/Music
@@ -16,42 +16,24 @@ import Storage from "../Utils/Storage";
 function Musics({ navigation }) {
     const { colors } = useTheme();
 
-    const [musics, SetMusics] = useState([]);
-    const [loading, SetLoading] = useState(true);
+    const {
+        musics, SetMusics,
+        loading, SetLoading,
+        playing, SetPlaying,
+        currentMusic, SetCurrentMusic,
+        index, SetIndex,
+        Player: TrackPlayer
+    } = useContext(Context);
 
     useEffect(() => {
-        Storage.GetSdCardPath().then((sdCardPath) => {
-            const INTERNAL_STORAGE = "file:///storage/emulated/0";
-            const EXTERNAL_STORAGE = sdCardPath;
-
-            console.log([INTERNAL_STORAGE, EXTERNAL_STORAGE]);
-
-            let temp = [];
-
-            Storage.ReadDirectory(INTERNAL_STORAGE + "/Music").then((internalFiles) => {
-                temp = Storage.FilterMusics(temp, internalFiles);
-
-                Storage.ReadDirectory(EXTERNAL_STORAGE + "/Music").then((externalFiles) => {
-                    temp = Storage.FilterMusics(temp, externalFiles);
-
-                    SetMusics(temp);
-                    SetLoading(false);
-                });
+        TrackPlayer.getCurrentTrack().then((id) => {
+            TrackPlayer.getTrack(id).then((music) => {
+                SetCurrentMusic(music);
             });
-        }).catch((error) => {
-            console.warn(error);
         });
-        /*
-        Storage.GetMusics().then((musics) => {
-            SetMusics(musics);
-            SetLoading(false);
-        }).catch((error) => {
-            console.log(error);
-        });
-        */
-    }, []);
+    }, [index]);
 
-    const RenderItem = ({ item }) => (<MusicRow name={item.name} navigation={navigation} />);
+    const RenderItem = ({ item }) => (<MusicRow music={item} navigation={navigation} />);
 
     if (loading) {
         return (
@@ -81,12 +63,12 @@ function Musics({ navigation }) {
                         <FlatList
                             data={musics}
                             renderItem={RenderItem}
-                            keyExtractor={item => item.key}
+                            keyExtractor={item => item.id}
                             removeClippedSubviews={true}
                             initialNumToRender={8}
                         />
                     </SafeAreaView>
-                    <BottonPlayer navigation={navigation} />
+                    <BottonPlayer navigation={navigation} music={currentMusic} />
                 </View>
             </>
         );

@@ -45,9 +45,9 @@ function FilterMusics(array, files) {
     files.forEach(file => {
         if (file.isFile() && (file.name.endsWith(".mp3") || file.name.endsWith(".m4a"))) {
             musics.push({
-                key: (musics.length + 1).toString(),
-                name: file.name,
-                path: file.path,
+                id: (musics.length + 1).toString(),
+                title: file.name,
+                url: file.path,
             });
         }
     });
